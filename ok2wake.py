@@ -6,11 +6,12 @@ my_breakfile = "/break.zzz"
 RED_LED = 17
 YELLOW_LED = 21
 
-hourToSleep = 22
+hourToSleep = 20
 hourOKtoWake = 06
 minuteOKtoWake = 15
 hourOKtoLeaveRoom = 7
 minuteOKtoLeaveRoom = 00
+
 
 # Setup 
 def setup():
@@ -31,23 +32,23 @@ def loop():
 			elif (currentHour == hourToSleep-1):
 				print currentHour
 				print 'Almost time to go to sleep'
-                                count = 0
-                                while count < 5:
+                                countA = 0
+                                while count < 10:
                                         GPIO.output(YELLOW_LED, GPIO.HIGH)  # led on
-                                        time.sleep(1)
+					time.sleep(1)
                                         GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
                                         time.sleep(1)
-                                        count += 1
-	                                time.sleep(15)
-				time.sleep(60)
+                                        countA += 1
+	                                time.sleep(1)
+				time.sleep(45)
 
-                        elif (currentHour >= hourToSleep or currentHour < hourOKtoWake-1.5):
+                        elif (currentHour >= hourToSleep or currentHour < hourOKtoWake-2):
                                 print currentHour
                                 print 'Go to sleep!'
                                 GPIO.output(RED_LED, GPIO.HIGH)   # led on
-                                time.sleep(5)
+                                time.sleep(3600)
 
-			elif (currentHour >= hourOKtoWake-1.5 and currentHour < hourOKtoWake):
+			elif (currentHour >= hourOKtoWake-2 and currentHour < hourOKtoWake):
 				print currentHour
 				print 'almost time to wake'
                 		GPIO.output(RED_LED, GPIO.HIGH)   # led on
@@ -62,16 +63,10 @@ def loop():
 				
 			elif (currentHour == hourOKtoLeaveRoom and currentMinute >= minuteOKtoLeaveRoom):
 				print currentHour
+                                print 'OK to leave room!'
 				GPIO.output(RED_LED, GPIO.LOW)  # led off
-				print 'OK to leave room!'
-				count = 0
-				while count < 5:
-					GPIO.output(YELLOW_LED, GPIO.HIGH)  # led on
-                                	time.sleep(1)
-                                	GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
-                                	time.sleep(1)
-					count += 1	
-				time.sleep(30)
+                               	GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
+				time.sleep(3600)
 
 
                         elif (currentHour >= hourToSleep):
