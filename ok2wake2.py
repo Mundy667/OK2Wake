@@ -41,12 +41,12 @@ def loop():
 #hourOKtoLeaveRoom = 7
 #minuteOKtoLeaveRoom = 00
 
-hourToSleep = settings.get('time2Sleep', 'hourToSleep')
-miniuteToSleep = settings.get('time2Sleep', 'miniuteToSleep')
-hourOKtoWake = settings.get('timeOK2Wake', 'hourOKtoWake')
-minuteOKtoWake = settings.get('timeOK2Wake', 'minuteOKtoWake')
-hourOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'hourOKtoLeaveRoom')
-minuteOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'minuteOKtoLeaveRoom')
+		hourToSleep = settings.get('time2Sleep', 'hourToSleep')
+		miniuteToSleep = settings.get('time2Sleep', 'miniuteToSleep')
+		hourOKtoWake = settings.get('timeOK2Wake', 'hourOKtoWake')
+		minuteOKtoWake = settings.get('timeOK2Wake', 'minuteOKtoWake')
+		hourOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'hourOKtoLeaveRoom')
+		minuteOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'minuteOKtoLeaveRoom')
 
 			
 # Looping - run according to the current time
