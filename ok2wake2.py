@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 import RPi.GPIO as GPIO, time, datetime
+#for checking break file
 import os.path
+# for importing the ini file
+import configparser
+settings = configparser.ConfigParser()
+settings._interpolation = configparser.ExtendedInterpolation()
 
+
+# Permanent Settings
 my_breakfile = "/break.zzz"
 RED_LED = 17
 YELLOW_LED = 21
 
-hourToSleep = 20
-hourOKtoWake = 06
-minuteOKtoWake = 15
-hourOKtoLeaveRoom = 7
-minuteOKtoLeaveRoom = 00
 
 # Setup 
 def setup():
@@ -22,7 +24,32 @@ def loop():
 	while True:
 		currentHour = datetime.datetime.now().hour
 		currentMinute =  datetime.datetime.now().minute
+		currentDay = datetime.isoweekday() #Monday is 1 and Sunday is 7
+		print currentDay
+# Import the correct config file 
+		if (currentDay >= 1 and currentDay <= 4):
+			settings.read('weekday.ini')
+		elif (currentDay == 7):
+			settings.read('weekday.ini')
+		else:
+			settings.read('weekend.ini')
+# Set variables
+# Dynamic settings that will be put into ini files
+#hourToSleep = 20
+#hourOKtoWake = 06
+#minuteOKtoWake = 15
+#hourOKtoLeaveRoom = 7
+#minuteOKtoLeaveRoom = 00
 
+hourToSleep = settings.get('time2Sleep', 'hourToSleep')
+miniuteToSleep = settings.get('time2Sleep', 'miniuteToSleep')
+hourOKtoWake = settings.get('timeOK2Wake', 'hourOKtoWake')
+minuteOKtoWake = settings.get('timeOK2Wake', 'minuteOKtoWake')
+hourOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'hourOKtoLeaveRoom')
+minuteOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'minuteOKtoLeaveRoom')
+
+			
+# Looping - run according to the current time
 		if os.path.exists(my_breakfile):
 			print 'break break break!'
 			destroy()
