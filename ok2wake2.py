@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO, time, datetime
 #for checking break file
 import os.path
 # for importing the ini file
-import configparser
+import ConfigParser #chgange to configparser in Python3
 settings = configparser.ConfigParser()
 settings._interpolation = configparser.ExtendedInterpolation()
 
