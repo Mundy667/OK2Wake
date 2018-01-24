@@ -114,7 +114,7 @@ def loop():
    time.sleep(5)
  
 def destroy():
-  GPIO.output(RED_LED, GPIO.LOW)      # RED led off
+ GPIO.output(RED_LED, GPIO.LOW)      # RED led off
  GPIO.output(YELLOW_LED, GPIO.LOW)      # Yellow led off  
  GPIO.cleanup()         # Release resource
  
