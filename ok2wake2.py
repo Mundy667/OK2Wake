@@ -24,7 +24,8 @@ def loop():
  while True:
   currentHour = datetime.datetime.now().hour
   currentMinute =  datetime.datetime.now().minute
-  currentDay = datetime.isoweekday() #Monday is 1 and Sunday is 7
+  day_date = datetime.date(year, month, day) # Found this as an example - test to see if it works.
+  currentDay = day_date.isoweekday() 	#Monday is 1 and Sunday is 7
   print currentDay
 # Import the correct config file 
   if (currentDay >= 1 and currentDay <= 4):
