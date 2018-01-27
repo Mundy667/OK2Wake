@@ -5,7 +5,7 @@ import os.path
 # for importing the ini file
 import ConfigParser #chgange to configparser in Python3
 settings = ConfigParser.ConfigParser()
-settings._interpolation = configparser.ExtendedInterpolation()
+#settings._interpolation = ConfigParser.ExtendedInterpolation()
 
 
 # Permanent Settings
