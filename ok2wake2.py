@@ -22,18 +22,23 @@ def setup():
 		
 def loop():
  while True:
+  currentYear = datetime.datetime.now().year
+  currentMonth = datetime.datetime.now().month
+  currentDay = datetime.datetime.now().day
   currentHour = datetime.datetime.now().hour
   currentMinute =  datetime.datetime.now().minute
-  day_date = datetime.date(year, month, day) # Found this as an example - test to see if it works.
+  day_date = datetime.date(currentYear, currentMonth, currentDay) 
   currentDay = day_date.isoweekday() 	#Monday is 1 and Sunday is 7
-  print currentDay
 # Import the correct config file 
   if (currentDay >= 1 and currentDay <= 4):
    settings.read('weekday.ini')
-  elif (currentDay == 7):
+   print 'import weekday ini'
+  elif (currentDay == 6 or currentDay == 7):
    settings.read('weekday.ini')
+   print 'import weekend ini'
   else:
-   settings.read('weekend.ini')
+   settings.read('weekday.ini')
+   print 'something went wrong, importing weekday ini'
 # Set variables
 # Dynamic settings that will be put into ini files
 #hourToSleep = 20
@@ -42,12 +47,12 @@ def loop():
 #hourOKtoLeaveRoom = 7
 #minuteOKtoLeaveRoom = 00
 
-  hourToSleep = settings.get('time2Sleep', 'hourToSleep')
-  miniuteToSleep = settings.get('time2Sleep', 'miniuteToSleep')
-  hourOKtoWake = settings.get('timeOK2Wake', 'hourOKtoWake')
-  minuteOKtoWake = settings.get('timeOK2Wake', 'minuteOKtoWake')
-  hourOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'hourOKtoLeaveRoom')
-  minuteOKtoLeaveRoom = settings.get('timeOK2LeaveRoom', 'minuteOKtoLeaveRoom')
+  hourToSleep = int(settings.get('time2Sleep', 'hourToSleep'))
+  miniuteToSleep = int (settings.get('time2Sleep', 'miniuteToSleep'))
+  hourOKtoWake = int (settings.get('timeOK2Wake', 'hourOKtoWake'))
+  minuteOKtoWake = int(settings.get('timeOK2Wake', 'minuteOKtoWake'))
+  hourOKtoLeaveRoom = int(settings.get('timeOK2LeaveRoom', 'hourOKtoLeaveRoom'))
+  minuteOKtoLeaveRoom = int(settings.get('timeOK2LeaveRoom', 'minuteOKtoLeaveRoom'))
 
    
 # Looping - run according to the current time
