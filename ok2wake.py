@@ -109,7 +109,7 @@ def loop():
    GPIO.output(RED_LED, GPIO.LOW)  # led off
    GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
 #  Sleep before next loop (long)
-   time.sleep(5)
+   time.sleep(3600)
  
 def destroy():
  GPIO.output(RED_LED, GPIO.LOW)      # RED led off
