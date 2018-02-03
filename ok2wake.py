@@ -6,7 +6,9 @@ import os.path
 import ConfigParser #chgange to configparser in Python3
 settings = ConfigParser.ConfigParser()
 #settings._interpolation = ConfigParser.ExtendedInterpolation()
-
+import logging
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='/mnt/OK2Wake_logs/ok2wake.log',level=logging.DEBUG)
 
 # Permanent Settings
 my_breakfile = "/break.zzz"
@@ -30,7 +32,7 @@ def loop():
   currentMinute =  datetime.datetime.now().minute
   day_date = datetime.date(currentYear, currentMonth, currentDay) 
   currentDay = day_date.isoweekday() 	#Monday is 1 and Sunday is 7
-  logFile = "/mnt/OK2Wake_logs/currentYear_currentMonth_currentDay.log"
+  
 # Import the correct config file 
   if (currentDay >= 1 and currentDay <= 4):
    settings.read('weekday.ini')
@@ -51,12 +53,12 @@ def loop():
 
 # Looping - run according to the current time
   if os.path.exists(my_breakfile):
-   echo 'break! day_date' >> logFile
+   logging.warning('break!')
    destroy()
    break
 
   elif (currentHour == hourToSleep-1):
-   echo 'Almost time to go to sleep, its currentHour:currentMinute' >> logFile
+   logging.info('Almost time to go to sleep!')
    print 'Almost time to go to sleep, its currentHour:currentMinute'
    countA = 0
    while countA < 10:
@@ -71,13 +73,13 @@ def loop():
 
   elif (currentHour >= hourToSleep or currentHour < hourOKtoWake-2):
    print currentHour
-   echo 'Go to sleep! its currentHour:currentMinute' >> logFile
+   logging.info('Go to sleep!')
    GPIO.output(RED_LED, GPIO.HIGH)   # led on
 #  Sleep before next loop (long)
    time.sleep(3600)
 
   elif (currentHour >= hourOKtoWake-2 and currentHour < hourOKtoWake):
-   echo 'Almost time to wake up, its currentHour:currentMinute' >> logFile
+   logging.info('Almost time to wake up')
    print currentHour
    print 'almost time to wake'
    GPIO.output(RED_LED, GPIO.HIGH)   # led on
@@ -86,7 +88,7 @@ def loop():
    
   elif (currentHour >= hourOKtoWake and currentMinute >= minuteOKtoWake and currentHour < hourOKtoLeaveRoom):
    print currentHour
-   echo 'OK to wake up, but stay in room, its currentHour:currentMinute' >> logFile
+   logging.info('OK to wake, but stay in your room!')
    print 'OK to wake up, but stay in your room!'
    GPIO.output(RED_LED, GPIO.LOW)  # led off
    GPIO.output(YELLOW_LED, GPIO.HIGH)  # led on
@@ -94,7 +96,7 @@ def loop():
    time.sleep(60)
     
   elif (currentHour == hourOKtoLeaveRoom and currentMinute >= minuteOKtoLeaveRoom):
-   echo 'OK to leave room, its currentHour:currentMinute' >> logFile
+   logging.info('Good morning! Its OK to leave your room!')
    print currentHour
    print 'OK to leave room!'
    GPIO.output(RED_LED, GPIO.LOW)  # led off
@@ -103,7 +105,7 @@ def loop():
    time.sleep(3600)
 
   elif (currentHour >= hourToSleep):
-   echo 'Go to sleep, its currentHour:currentMinute' >> logFile
+   logging.info('Go to sleep!')
    print currentHour
    print 'Go to sleep!'
    GPIO.output(RED_LED, GPIO.HIGH)   # led on
@@ -111,7 +113,7 @@ def loop():
    time.sleep(3600)
 
   else:
-   echo 'Not active - currentHour:currentMinute' >> logFile
+   logging.info('Currently not active')
    print currentHour
    GPIO.output(RED_LED, GPIO.LOW)  # led off
    GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
@@ -119,7 +121,7 @@ def loop():
    time.sleep(3600)
  
 def destroy():
- echo 'Script Ending - currentHour:currentMinute' >> logFile
+ logging.warning('Script ending')
  GPIO.output(RED_LED, GPIO.LOW)      # RED led off
  GPIO.output(YELLOW_LED, GPIO.LOW)      # Yellow led off  
  GPIO.cleanup()         # Release resource
