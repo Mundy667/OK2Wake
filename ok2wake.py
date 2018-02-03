@@ -7,7 +7,7 @@ import ConfigParser #chgange to configparser in Python3
 settings = ConfigParser.ConfigParser()
 #settings._interpolation = ConfigParser.ExtendedInterpolation()
 import logging
-logfile = "ok2wake.log"
+logfile = "/mnt/OK2Wake_logs/ok2wake.log"
 logging.basicConfig(filename=logfile,level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
 
 
