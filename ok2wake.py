@@ -9,13 +9,12 @@ settings = ConfigParser.ConfigParser()
 import logging
 logfile = "/mnt/OK2Wake_logs/ok2wake.log"
 logging.basicConfig(filename=logfile,level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
-
+logging.info('Script Started')
 
 # Permanent Settings
 my_breakfile = "/break.zzz"
 RED_LED = 17
 YELLOW_LED = 21
-
 
 # Setup 
 def setup():
@@ -60,17 +59,26 @@ def loop():
 
   elif (currentHour == hourToSleep-1):
    logging.info('Almost time to go to sleep!')
-   print 'Almost time to go to sleep, its currentHour:currentMinute'
    countA = 0
    while countA < 10:
     GPIO.output(YELLOW_LED, GPIO.HIGH)  # led on
     time.sleep(1)
     GPIO.output(YELLOW_LED, GPIO.LOW)  # led off
     time.sleep(1)
+    GPIO.output(YELLOW_LED, GPIO.HIGH)  # led on
     countA += 1
-    time.sleep(1)
 #  Sleep before next loop (short)
    time.sleep(45)
+
+  elif (currentHour == hourToSleep):
+   if (currentMinute < miniuteToSleep):
+    timetowait = 60 * (miniuteToSleep - currentMinute -1)
+    time.sleep(timetowait)
+   elif (currentMinute => miniuteToSleep):
+    logging.info('Go to sleep!')
+    GPIO.output(RED_LED, GPIO.HIGH)   # led on
+#   Sleep before next loop (long)
+    time.sleep(14400)
 
   elif (currentHour >= hourToSleep or currentHour < hourOKtoWake-2):
    print currentHour
