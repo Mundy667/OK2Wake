@@ -16,6 +16,7 @@ YELLOW_LED = 21
 
 # Setup 
 def setup():
+ GPIO.setwarnings(False)
  GPIO.setmode(GPIO.BCM)       		# Set the board mode to numbers pins by physical location
  GPIO.setup(RED_LED, GPIO.OUT)   	# Set pin mode as output
  GPIO.setup(YELLOW_LED, GPIO.OUT)  	# Set pin mode as output
