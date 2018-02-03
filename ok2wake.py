@@ -8,7 +8,7 @@ settings = ConfigParser.ConfigParser()
 #settings._interpolation = ConfigParser.ExtendedInterpolation()
 import logging
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-logging.basicConfig(filename='/mnt/OK2Wake_logs/ok2wake.log',level=logging.DEBUG)
+logging.basicConfig(filename='/mnt/OK2Wake_logs/ok2wake.log',level=logging.INFO)
 
 # Permanent Settings
 my_breakfile = "/break.zzz"
